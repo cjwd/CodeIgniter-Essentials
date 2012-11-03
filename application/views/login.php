@@ -49,12 +49,19 @@
 				    <label class="control-label" for="inputUserType">User Type</label>
 				    <div class="controls">
 				    	<select id='inputUserType' name='usertype'>
-				    		<?php foreach ($usertype as $type): ?>
-				    			<option><?php echo $type['user_type'] ?></option>
-				    		<?php endforeach ?>
+				    		<option value="admin">admin</option>
+				    		<option value="author">author</option>
+				    		<option value="user">user</option>
 							
 							
 						</select>
+				    	<!-- <select id='inputUserType' name='usertype'>
+				    		<?php //foreach ($usertype as $type): ?>
+				    			<option><?php //echo $type['user_type'] ?></option>
+				    		<?php //endforeach ?>
+							
+							
+						</select> -->
 				    </div>
 			    </div>
 			    <div class="control-group">
