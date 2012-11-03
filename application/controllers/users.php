@@ -9,7 +9,8 @@ class Users extends CI_Controller
 			$this->load->model('user');
 			$username = $this->input->post('username', true); // similar to just writing $username = $_POST['username']
 			$password = $this->input->post('password', true);
-			$user = $this->user->login($username, $password);
+			$type = $this->input->post('usertype', true);
+			$user = $this->user->login($username, $password, $type);
 			if(!$user){
 				$data['error'] = 1;
 
@@ -17,7 +18,7 @@ class Users extends CI_Controller
 				$this->session->set_userdata('user_id', $user['user_id']);
 				$this->session->set_userdata('user_type', $user['user_type']);
 				$this->session->set_userdata('username', ucfirst($user['username']));
-				
+
 				redirect(base_url().'posts');
 			}
 		}
