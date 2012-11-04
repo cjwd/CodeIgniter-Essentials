@@ -51,6 +51,18 @@ class Posts extends CI_Controller
 
 	function new_post()
 	{
+		/*Old/ Alternative way (also in edit_post and delete_post)
+		$user_type = $this->session->userdata('user_type');
+		// Capitalized Admin and Author because of ucfirst() function
+		// in users controllers on the set_userdata variables
+		if ($user_type !== 'Admin' && $user_type !=='Author') {		
+			redirect(base_url().'users/login');
+		}*/
+
+		if (!$this->correct_permissions('Author')) {		
+			redirect(base_url().'users/login');
+		}
+
 		if ($_POST) {
 			$data = array(
 				'title'  => $_POST['title'],
@@ -65,8 +77,40 @@ class Posts extends CI_Controller
 		}	
 	}
 
+	// New way of checking access level and assigning permissions
+	// Delete this function if using Alternative way see comments
+	// for new_post, edit_post, delete_post
+	function correct_permissions($required)
+	{
+		$user_type = $this->session->userdata('user_type');
+		if ($required == 'User') {
+			if ($user_type) {
+				return true;
+			}
+		} else if ($required == 'Author') {
+			if($user_type == 'Admin' || $user_type == "Author"){
+				return true;
+			}
+		} else if ($required == 'Admin'){
+			if($user_type == 'Admin') {
+				return true;
+			}
+		}
+	}
+
 	function edit_post($post_id)
 	{
+		/*Old/ Alternative way (also in new_post and delete_post)
+		$user_type = $this->session->userdata('user_type');
+		if ($user_type !== 'Admin' && $user_type !=='Author') {		
+			redirect(base_url().'users/login');
+		}*/
+
+
+		if (!$this->correct_permissions('Author')) {		
+			redirect(base_url().'users/login');
+		}
+
 		$data['success'] = 0;
 		if ($_POST) {
 			$data = array(
@@ -86,6 +130,16 @@ class Posts extends CI_Controller
 
 	function delete_post($post_id)
 	{
+		/*Old/ Alternative way (also in new_post and edit_post)
+		$user_type = $this->session->userdata('user_type');
+		if ($user_type !== 'Admin' && $user_type !=='Author') {		
+			redirect(base_url().'users/login');
+		}*/
+
+		if (!$this->correct_permissions('Author')) {		
+			redirect(base_url().'users/login');
+		}
+
 		$this->post->delete_post($post_id);
 		redirect(base_url().'posts');
 	}

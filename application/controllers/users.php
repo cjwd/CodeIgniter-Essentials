@@ -16,7 +16,7 @@ class Users extends CI_Controller
 
 			} else {
 				$this->session->set_userdata('user_id', $user['user_id']);
-				$this->session->set_userdata('user_type', $user['user_type']);
+				$this->session->set_userdata('user_type', ucfirst($user['user_type']));
 				$this->session->set_userdata('username', ucfirst($user['username']));
 
 				redirect(base_url().'posts');
