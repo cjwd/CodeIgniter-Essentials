@@ -26,7 +26,12 @@
 		<div class="hero-unit">
 			<h1>Register User</h1>
 			<hr>
-				
+				<?php if (validation_errors()): ?>
+					<div class="alert alert-error">
+						<a class="close" data-dismiss="alert">&times;</a>
+						<strong>Error!</strong> <?php echo validation_errors(); ?>
+					</div>
+				<?php endif ?>
 				<?php 
 				$frm_attr = array('class' => 'form-horizontal');
 				echo form_open(base_url().'users/register', $frm_attr); ?>
@@ -44,9 +49,31 @@
 					    		'type'			=>	'text',
 					    		'name'			=>	'username',
 					    		'id'			=>	'username',
-					    		'placeholder'	=>	'Username'
+					    		'placeholder'	=>	'Username',
+					    		'value'			=>	set_value('username')
 					    	 );	
 					    	echo form_input($in_user);
+					    	 ?>
+					    	
+					    </div>
+				    </div>
+				    <div class="control-group">
+					    <?php 
+				    	$attributes = array(
+				    		'class'	=>	'control-label'	
+				    	);
+				    	echo form_label('Email', 'email', $attributes); ?>
+					    
+					    <div class="controls">
+					    	<?php 
+					    	$in_email = array(
+					    		'type'			=>	'text',
+					    		'name'			=>	'email',
+					    		'id'			=>	'email',
+					    		'placeholder'	=>	'Email Address',
+					    		'value'			=>	set_value('email')
+					    	 );	
+					    	echo form_input($in_email);
 					    	 ?>
 					    	
 					    </div>
@@ -60,13 +87,33 @@
 
 					    <div class="controls">
 					    	<?php 
-					    	$in_user = array(
+					    	$in_pass = array(
 					    		
 					    		'name'			=>	'password',
 					    		'id'			=>	'password',
 					    		'placeholder'	=>	'Password'
 					    	 );	
-					    	echo form_password($in_user);
+					    	echo form_password($in_pass);
+					    	 ?>
+					    	
+					    </div>
+				    </div>
+				    <div class="control-group">
+				    	<?php 
+				    	$attributes = array(
+				    		'class'	=>	'control-label'	
+				    	);
+				    	echo form_label('Confirm Password', 'passwordc', $attributes); ?>
+
+					    <div class="controls">
+					    	<?php 
+					    	$in_passc = array(
+					    		
+					    		'name'			=>	'passwordc',
+					    		'id'			=>	'passwordc',
+					    		'placeholder'	=>	'Confirm Password'
+					    	 );	
+					    	echo form_password($in_passc);
 					    	 ?>
 					    	
 					    </div>
@@ -80,13 +127,15 @@
 				    	echo form_label('User Type', 'usertype', $attributes); ?>
 					    <div class="controls">
 					    	<?php 
-					    	$option = array(
+					    	$options = array(
 					    		''			=>	'--',
 					    		'admin'		=>	'Admin',
 					    		'author'	=>	'Author',
 					    		'user'		=>	'User'	
 					    	);
-					    	echo form_dropdown('usertype', $option , 'admin'); ?>					    	
+
+					    	$js = 'id="usertype"';
+					    	echo form_dropdown('usertype', $options , set_value('usertype', 'admin'), $js); ?>					    	
 					    </div>
 				    </div>
 				    <div class="control-group">

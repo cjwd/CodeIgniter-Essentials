@@ -70,7 +70,7 @@
 					    <input type="checkbox"> Remember me
 					    </label>
 					    <button type="submit" class="btn">Login</button>
-					    <a href="">Register</a>
+					    <a href=" <?php echo base_url() ?>users/register ">Register</a>
 				    </div>
 			    </div>
 		    </form>

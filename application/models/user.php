@@ -3,14 +3,15 @@ class User extends CI_Model
 {
 	function create_user($data)
 	{
-		$this->db->insert('users', $data);
+		$this->db->insert('ci_users', $data);
+		
 	}
 
 	function login($username, $password, $type)
 	{
 		$where = array(
 			'username'	=>	$username,
-			'password'	=>	$password, //sha1($password),
+			'password'	=>	sha1($password), //$password,
 			'user_type' => 	$type
 		);
 
